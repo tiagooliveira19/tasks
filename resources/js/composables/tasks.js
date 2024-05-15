@@ -24,8 +24,10 @@ export default function useTasks () {
         errors.value = '';
 
         try {
-            await axios.post('/api/tasks', data);
-            await router.push({ name: 'tasks.index' });
+            await axios.get('/userLogged')
+                    .then(response => console.log(response['data']));
+            // await axios.post('/api/tasks', data);
+            // await router.push({ name: 'tasks.index' });
         } catch (e) {
             if (e.response.status === 422) {
                 for (const key in e.response.data.errors) {
@@ -50,6 +52,10 @@ export default function useTasks () {
         }
     }
 
+    const destroyTask = async (id) => {
+        await axios.delete(`/api/tasks/${id}`);
+    }
+
     return {
         errors,
         task,
@@ -57,6 +63,7 @@ export default function useTasks () {
         getTask,
         getTasks,
         storeTask,
-        updateTask
+        updateTask,
+        destroyTask
     }
 }

@@ -57,4 +57,14 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    public function userLogged (Request $request) {
+        
+        $userLoggedId = Auth::user()->id;
+        $userLogged = Auth::user()->name;
+
+        $data = array('id' => $userLoggedId, 'name' => $userLogged);
+
+        return response()->json($data, 200);
+    }
 }

@@ -19,6 +19,8 @@
               integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     </head>
     <body class="font-sans antialiased">
+        <!-- <input type="hidden" name="_token" value="{{ csrf_token() }}"> -->
+
         <div class="min-h-screen bg-gray-100" id="app">
             @include('layouts.navigation')
 
