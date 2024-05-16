@@ -10,7 +10,7 @@ export default function useTasks () {
     const errors = ref('');
     const router = useRouter();
 
-    const getTasks = async () => {
+    const getTasks = async (data) => {
         let response = await axios.get('/api/tasks');
         tasks.value = response.data.data;
     }
@@ -25,7 +25,12 @@ export default function useTasks () {
 
         try {
             await axios.get('/userLogged')
-                    .then(response => console.log(response['data']));
+                    .then(response => {
+                        data = JSON.stringify({ ...data, user_id: response['data']['id'].toString() });
+                        data = JSON.parse(data);
+                        axios.post('/api/tasks', data);
+                        router.push({ name: 'tasks.index' });
+                    });
             // await axios.post('/api/tasks', data);
             // await router.push({ name: 'tasks.index' });
         } catch (e) {

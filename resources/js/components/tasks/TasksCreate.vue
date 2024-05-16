@@ -27,14 +27,14 @@
                 </div>
             </div>
  
-            <div>
+            <!-- <div>
                 <label for="user_id" class="block text-sm font-medium text-gray-700">User</label>
                 <div class="mt-1">
                     <input type="text" name="user_id" id="user_id"
                             class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                             v-model="form.user_id">
                 </div>
-            </div>
+            </div> -->
         </div>
  
         <button type="submit"

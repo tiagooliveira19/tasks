@@ -15,7 +15,21 @@ class TaskController extends Controller
      */
     public function index()
     {
-        return TaskResource::collection(Task::all());
+        $tasks = Task::join('users', 'users.id', '=', 'tasks.user_id')->get();
+        $tasksList = array();
+
+        foreach ($tasks as $task) {
+
+            $tasksList[] = [
+                'id' => $task->id,
+                'title' => $task->title,
+                'description' => $task->description,
+                'user_id' => $task->name
+            ];
+        }
+
+        return TaskResource::collection($tasksList);
+        // return TaskResource::collection(Task::all());
     }
 
     /**

@@ -1,11 +1,4 @@
 <template>
-
-    <div class="flex mb-4 place-content-end">
-        <div class="px-4 py-2 text-white cursor-pointer btn btn-success uppercase">
-            <router-link :to="{ name: 'tasks.create' }" class="text-sm font-medium">Add Task</router-link>
-        </div>
-    </div>
-
     <div class="min-w-full overflow-hidden overflow-x-auto align-middle sm:rounded-md">
         <table class="table table-striped">
             <thead>
@@ -53,6 +46,12 @@
                 </template>
             </tbody>
         </table>
+    </div>
+
+    <div class="flex mt-5 mb-3 place-content-end">
+        <div class="px-4 py-2 text-white cursor-pointer btn btn-success uppercase">
+            <router-link :to="{ name: 'tasks.create' }" class="text-sm font-medium">Add Task</router-link>
+        </div>
     </div>
 </template>
 <script setup>
