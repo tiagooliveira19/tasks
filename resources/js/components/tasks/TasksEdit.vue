@@ -7,25 +7,25 @@
         </div>
     </div>
 
-    <h3 class="mb-5 text-gray-700 border-bottom">Create Task</h3>
+    <h3 class="mb-5 text-gray-700 border-bottom">Edit Task</h3>
  
-    <form class="space-y-6" @submit.prevent="saveTask">
+    <form class="space-y-6" v-on:submit.prevent="saveTask">
         <div class="space-y-4 rounded-md shadow-sm">
             <div>
                 <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
                 <div class="mt-1">
                     <input type="text" name="title" id="title"
                             class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                            v-model="form.title" required>
+                            v-model="task.title">
                 </div>
             </div>
- 
+
             <div>
                 <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
                 <div class="mt-1">
-                    <textarea type="text" name="description" id="description"
+                    <textarea name="description" id="description"
                             class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                            v-model="form.description"></textarea>
+                            v-model="task.description"></textarea>
                 </div>
             </div>
         </div>
@@ -36,19 +36,27 @@
 
         <button type="submit"
             class="inline-flex items-center text-white uppercase float-right btn btn-success fs-12 mb-5">
-            Save
+            Update
         </button>
     </form>
 </template>
 
 <script setup>
-    import useTasks from '../../composables/tasks';
-    import { reactive } from "vue";
 
-    const form = reactive({ title: '', description: '', user_id: '' });
-    const { errors, storeTask } = useTasks();
-
+    import useTasks from '@/composables/tasks'
+    import { onMounted } from 'vue';
+ 
+    const { errors, task, updateTask, getTask } = useTasks();
+    const props = defineProps({
+        id: {
+            required: true,
+            type: String
+        }
+    });
+ 
+    onMounted(() => getTask(props.id))
+ 
     const saveTask = async () => {
-        await storeTask ({ ...form });
-    }
+        await updateTask(props.id)
+    };
 </script>

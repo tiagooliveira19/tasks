@@ -7,16 +7,19 @@
                         <span class="text-xs font-medium leading-4 tracking-wider text-center uppercase">Id</span>
                     </th>
                     <th class="px-6 py-3">
-                        <span class="text-xs font-medium leading-4 tracking-wider text-center uppercase">Título</span>
+                        <span class="text-xs font-medium leading-4 tracking-wider text-center uppercase">Title</span>
                     </th>
                     <th class="px-6 py-3">
-                        <span class="text-xs font-medium leading-4 tracking-wider text-center uppercase">Descrição</span>
+                        <span class="text-xs font-medium leading-4 tracking-wider text-center uppercase">Description</span>
                     </th>
                     <th class="px-6 py-3">
-                        <span class="text-xs font-medium leading-4 tracking-wider text-center uppercase">Usuário</span>
+                        <span class="text-xs font-medium leading-4 tracking-wider text-center uppercase">User</span>
+                    </th>
+                    <th class="px-6 py-3">
+                        <span class="text-xs font-medium leading-4 tracking-wider text-center uppercase">Created At</span>
                     </th>
                     <th class="px-6 py-3 text-center">
-                        <span class="text-xs font-medium leading-4 tracking-wider uppercase">Ações</span>
+                        <span class="text-xs font-medium leading-4 tracking-wider uppercase">Actions</span>
                     </th>
                 </tr>
             </thead>
@@ -36,9 +39,14 @@
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
                             {{ item.user_id }}
                         </td>
+                        <td class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
+                            {{ item.created_at }}
+                        </td>
                         <td class="px-6 py-4 text-sm leading-5 text-center text-gray-900 whitespace-no-wrap">
-                            <button @click="deleteCompany(item.id)" 
-                                class="inline-flex items-center px-4 py-2 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-800 border border-transparent rounded-md hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25">
+                            <router-link :to="{ name: 'tasks.edit', params: { id: item.id } }"
+                                    class="text-white cursor-pointer uppercase btn btn-dark fs-12 mr-2">Edit</router-link> 
+                            <button @click="deleteTask(item.id)" 
+                                class="inline-flex items-center text-white uppercase btn btn-dark fs-12">
                                 Delete
                             </button>
                         </td>
@@ -49,8 +57,8 @@
     </div>
 
     <div class="flex mt-5 mb-3 place-content-end">
-        <div class="px-4 py-2 text-white cursor-pointer btn btn-success uppercase">
-            <router-link :to="{ name: 'tasks.create' }" class="text-sm font-medium">Add Task</router-link>
+        <div class="text-white cursor-pointer btn btn-success uppercase">
+            <router-link :to="{ name: 'tasks.create' }" class="text-sm fs-12">New Task</router-link>
         </div>
     </div>
 </template>
@@ -62,7 +70,7 @@
 
     const deleteTask = async (id) => {
         
-        if (!window.confirm('Você tem certeza?')) {
+        if (!window.confirm('Are you sure?')) {
             return
         }
  

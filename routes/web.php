@@ -27,6 +27,15 @@ Route::get('/api/tasks', [TaskController::class, 'index']);
 // Save new task
 Route::post('/api/tasks', [TaskController::class, 'store']);
 
+// Get single task
+Route::get('/api/tasks/{id}',[TaskController::class, 'show']);
+
+// Update task
+Route::put('/api/tasks/{id}',[TaskController::class, 'update']);
+
+// Delete task
+Route::delete('/api/tasks/{id}', [TaskController::class, 'destroy']);
+
 Route::view('/{any}', 'dashboard')
     ->middleware(['auth'])
     ->where('any', '.*');

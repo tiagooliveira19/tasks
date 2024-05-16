@@ -7,6 +7,7 @@ use App\Http\Requests\TaskRequest;
 use App\Http\Resources\TaskResource;
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -15,7 +16,8 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::join('users', 'users.id', '=', 'tasks.user_id')->get();
+        $tasks = Task::select('tasks.id', 'tasks.title', 'tasks.description', 'tasks.created_at', 'users.name')
+                    ->join('users', 'users.id', '=', 'tasks.user_id')->where('users.id', Auth::user()->id)->get();
         $tasksList = array();
 
         foreach ($tasks as $task) {
@@ -23,13 +25,13 @@ class TaskController extends Controller
             $tasksList[] = [
                 'id' => $task->id,
                 'title' => $task->title,
-                'description' => $task->description,
+                'description' => mb_strimwidth($task->description, 0, 100, '...'),
+                'created_at' => date('d/m/Y', strtotime($task->created_at)),
                 'user_id' => $task->name
             ];
         }
 
         return TaskResource::collection($tasksList);
-        // return TaskResource::collection(Task::all());
     }
 
     /**
@@ -45,17 +47,21 @@ class TaskController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Task $task)
+    public function show($id)
     {
-        return new TaskResource($task);
+        $task = new Task();
+        $response = $task::where('id', $id)->first();
+
+        return new TaskResource($response);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(TaskRequest $request, Task $task)
+    public function update(TaskRequest $request, $id)
     {
-        $task->update($request->validated());
+        $task = new Task();
+        $task::where('id', $id)->update($request->validated());
 
         return new TaskResource($task);
     }
@@ -63,9 +69,11 @@ class TaskController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Task $task)
+    public function destroy($id)
     {
-        $task->delete();
+
+        $task = new Task();
+        $task->find($id)->delete();
 
         return response()->noContent();
     }

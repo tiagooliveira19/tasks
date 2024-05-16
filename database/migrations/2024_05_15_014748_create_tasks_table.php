@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id()->primary()->autoIncrement();
             $table->string('title');
-            $table->string('description')->nullable();
+            $table->longText('description')->nullable();
             $table->string('user_id');
             $table->timestamps();
         });

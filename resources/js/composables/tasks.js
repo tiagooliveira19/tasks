@@ -31,8 +31,6 @@ export default function useTasks () {
                         axios.post('/api/tasks', data);
                         router.push({ name: 'tasks.index' });
                     });
-            // await axios.post('/api/tasks', data);
-            // await router.push({ name: 'tasks.index' });
         } catch (e) {
             if (e.response.status === 422) {
                 for (const key in e.response.data.errors) {
@@ -46,7 +44,8 @@ export default function useTasks () {
         errors.value = '';
 
         try {
-            await axios.patch(`/api/tasks/${id}`, task.value);
+            console.log(task.value);
+            await axios.put(`/api/tasks/${id}`, task.value);
             await router.push({ name: 'tasks.index' });
         } catch (e) {
             if (e.response.status === 422) {

@@ -10,3 +10,11 @@ a {
 a:hover {
     opacity: .7;
 }
+
+.fs-12 {
+    font-size: 12px !important;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #E9ECEF;
+}
