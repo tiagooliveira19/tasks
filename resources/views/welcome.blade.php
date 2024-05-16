@@ -69,7 +69,7 @@
                             </div>
                         </div>
 
-                        <div class="mt-5 col-md-8 mx-auto text-white">
+                        <div class="mt-5 col-md-9 mx-auto text-white">
                             <p>
                                 <b>Seja bem-vindo ao Sistema!</b>
                             </p>
@@ -87,7 +87,10 @@
                                     A ferramenta <code>xampp</code> foi utilizada como servidor da aplicação
                                 </li>
                                 <li class="ml-50">
-                                    No terminal, rode o comando <code>xampp_start.exe</code> para iniciar o servidor de dados
+                                    No terminal, rode o comando <code>xampp_start.exe</code> (na raiz da pasta xampp) ou inicie o servidor pelo painel de controle da ferramenta
+                                </li>
+                                <li class="ml-50">
+                                    Para realizar a migração da base, rode o comando <code>php artisan migrate</code>
                                 </li>
                                 <li class="ml-50">
                                     Ainda no terminal, rode o comando <code>php artisan serve</code> para iniciar o servidor <code>laravel</code>

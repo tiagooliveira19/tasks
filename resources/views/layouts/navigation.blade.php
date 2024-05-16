@@ -19,6 +19,9 @@
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ms-6">
+                <x-nav-link :href="route('dashboard')" class="mr-5">
+                        <b>{{ Auth::user()->name }}</b>
+                    </x-nav-link>
                 <x-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
                     Perfil
                 </x-nav-link>
